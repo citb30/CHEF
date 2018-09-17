@@ -46,5 +46,14 @@ end
 template 'Updating Context.XML file' do 
     source 'context.xml.erb'
     path "/opt/#{node['stack']['TOMCAT_DIR']}/conf/context.xml"
-    
+end
+
+execute "Stopping Tomcat" do 
+    command "/opt/#{node['stack']['TOMCAT_DIR']}/bin/shutdown.sh"
+    not_if { `ps -ef | grep tomcat | grep -v grep -c`.to_i == 1 }
+end
+
+execute "Starting Tomcat" do 
+    command "/opt/#{node['stack']['TOMCAT_DIR']}/bin/startup.sh"
+    not_if { `ps -ef | grep tomcat | grep -v grep -c`.to_i == 1 }
 end
