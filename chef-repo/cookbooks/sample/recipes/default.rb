@@ -8,7 +8,7 @@ data = data_bag_item('sample', 'devops')
 
 
 log 'message' do
-  message "TIMINGS = #{data['timings']}"
+  message "TIMINGS = #{data['timings']}, Mode = #{data['mode']}"
   level :fatal
 end
 
